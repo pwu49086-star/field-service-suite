@@ -1,0 +1,27 @@
+{
+  "$id": "field-service://schemas/part",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Part",
+  "description": "Master data entity for spare parts and consumables.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1, "description": "Part name" },
+    "sku": { "type": "string", "description": "Stock Keeping Unit — unique part identifier" },
+    "barcode": { "type": "string", "description": "Barcode value for scanning" },
+    "brand": { "type": "string", "description": "Part manufacturer brand" },
+    "category": { "type": "string", "description": "Part category (e.g., 'filter', 'capacitor', 'refrigerant')" },
+    "unit": { "type": "string", "enum": ["piece", "meter", "kilogram", "liter", "set", "roll"], "description": "Unit of measure" },
+    "stock": { "type": "integer", "minimum": 0, "description": "Current stock quantity" },
+    "minStock": { "type": "integer", "minimum": 0, "description": "Minimum stock threshold for reorder alert" },
+    "unitPrice": { "type": "number", "minimum": 0, "description": "Unit selling price" },
+    "costPrice": { "type": "number", "minimum": 0, "description": "Unit cost price" },
+    "supplierId": { "type": ["string", "null"], "format": "uuid", "description": "Reference to Supplier" },
+    "compatibleAssets": { "type": "array", "items": { "type": "string" }, "description": "Compatible asset model IDs" },
+    "imageUrl": { "type": "string", "description": "Part photo URL" },
+    "status": { "type": "string", "enum": ["active", "discontinued"], "default": "active" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "name", "sku", "unit", "stock", "unitPrice", "status", "createdAt"]
+}

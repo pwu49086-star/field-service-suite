@@ -1,0 +1,44 @@
+{
+  "$id": "field-service://schemas/customer",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Customer",
+  "description": "Master data entity for customers — persons or organizations that own assets and receive service.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid", "description": "Unique identifier" },
+    "name": { "type": "string", "minLength": 1, "description": "Customer name (person or organization)" },
+    "phone": { "type": "string", "pattern": "^[0-9+\\-\\s]{6,20}$", "description": "Primary phone number" },
+    "email": { "type": "string", "format": "email", "description": "Email address" },
+    "type": { "type": "string", "enum": ["individual", "company"], "description": "Customer type" },
+    "addresses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/address" },
+      "description": "Customer addresses (home, office, etc.)"
+    },
+    "tags": { "type": "array", "items": { "type": "string" }, "description": "Custom tags for categorization" },
+    "notes": { "type": "string", "description": "Free-text notes" },
+    "status": { "type": "string", "enum": ["active", "inactive"], "default": "active" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "deletedAt": { "type": ["string", "null"], "format": "date-time", "description": "Soft delete timestamp" }
+  },
+  "required": ["id", "name", "phone", "type", "status", "createdAt"],
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "label": { "type": "string", "description": "e.g., 'Home', 'Office', 'Warehouse'" },
+        "province": { "type": "string" },
+        "city": { "type": "string" },
+        "district": { "type": "string" },
+        "street": { "type": "string" },
+        "detail": { "type": "string", "description": "Building, floor, room number" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "isDefault": { "type": "boolean", "default": false }
+      },
+      "required": ["id", "label", "city", "detail"]
+    }
+  }
+}

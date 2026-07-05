@@ -1,0 +1,40 @@
+{
+  "$id": "field-service://schemas/hvac-installation",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HVAC Installation Record",
+  "description": "Metadata for HVAC installation timeline events.",
+  "type": "object",
+  "properties": {
+    "installationType": {
+      "type": "string",
+      "enum": ["new", "replacement", "relocation"],
+      "description": "Type of installation"
+    },
+    "commissioningChecklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "result": { "type": "string", "enum": ["pass", "fail", "na"] },
+          "notes": { "type": "string" }
+        },
+        "required": ["item", "result"]
+      }
+    },
+    "testResults": {
+      "type": "object",
+      "properties": {
+        "coolingTempDiff": { "type": "number", "description": "Cooling temperature difference (°C)" },
+        "heatingTempDiff": { "type": "number", "description": "Heating temperature difference (°C)" },
+        "runningCurrent": { "type": "number", "description": "Running current (A)" },
+        "refrigerantPressureLow": { "type": "number", "description": "Low side pressure (MPa)" },
+        "refrigerantPressureHigh": { "type": "number", "description": "High side pressure (MPa)" },
+        "noiseLevel": { "type": "number", "description": "Noise level (dB)" }
+      }
+    },
+    "pipeLengthInstalled": { "type": "number", "description": "Actual pipe length installed (m)" },
+    "refrigerantChargeAmount": { "type": "number", "description": "Additional refrigerant charged (g)" }
+  },
+  "required": ["installationType", "commissioningChecklist"]
+}

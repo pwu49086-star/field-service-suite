@@ -1,0 +1,42 @@
+{
+  "$id": "field-service://schemas/asset",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Asset",
+  "description": "Master data entity for assets — physical devices, equipment, or installations. The central entity of the system.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1, "description": "Human-readable asset name" },
+    "serialNumber": { "type": "string", "description": "Manufacturer serial number, globally unique" },
+    "brandId": { "type": "string", "format": "uuid", "description": "Reference to Brand master data" },
+    "modelId": { "type": "string", "format": "uuid", "description": "Reference to Model master data" },
+    "customerId": { "type": "string", "format": "uuid", "description": "Reference to Customer who owns this asset" },
+    "addressId": { "type": "string", "format": "uuid", "description": "Reference to Address where asset is installed" },
+    "category": {
+      "type": "string",
+      "enum": ["hvac", "appliance", "elevator", "water-purifier", "solar", "fire-safety", "security", "other"],
+      "description": "Asset category — determines which industry module handles this asset"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["registered", "active", "maintenance", "inactive", "scrapped", "transferred"],
+      "default": "registered",
+      "description": "Current lifecycle state"
+    },
+    "installDate": { "type": ["string", "null"], "format": "date", "description": "Date the asset was installed" },
+    "warrantyExpiry": { "type": ["string", "null"], "format": "date", "description": "Warranty expiration date" },
+    "extension": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Industry-specific fields. Schema determined by 'category'. Validated by industry module."
+    },
+    "lastServiceDate": { "type": ["string", "null"], "format": "date-time", "description": "Last service event timestamp (denormalized from Timeline)" },
+    "nextMaintenanceDate": { "type": ["string", "null"], "format": "date", "description": "Scheduled next maintenance" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "deletedAt": { "type": ["string", "null"], "format": "date-time" }
+  },
+  "required": ["id", "name", "serialNumber", "brandId", "modelId", "customerId", "category", "status", "createdAt"]
+}

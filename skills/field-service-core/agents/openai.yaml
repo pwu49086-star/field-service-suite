@@ -1,0 +1,7 @@
+{
+  "display_name": "Field Service Core",
+  "short_description": "Core patterns for field service apps — master data, timeline, attachments, offline-first, workflow state machines.",
+  "default_prompt": "Help me build the core of a field service application with asset tracking, work orders, and offline support.",
+  "emoji_icon": "⚙️",
+  "categories": ["field-service", "core", "database", "offline"]
+}

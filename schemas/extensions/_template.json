@@ -1,0 +1,27 @@
+{
+  "$id": "field-service://schemas/asset-extension-template",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Asset Extension Template",
+  "description": "Template for industry-specific asset extension schemas. Copy and customize for each industry module.",
+  "type": "object",
+  "properties": {
+    "_template_note": {
+      "type": "string",
+      "description": "This is a template. Replace all fields with your industry-specific fields."
+    },
+    "exampleField1": {
+      "type": "string",
+      "description": "Replace with your first industry-specific field"
+    },
+    "exampleField2": {
+      "type": "number",
+      "description": "Replace with your second industry-specific field"
+    },
+    "exampleEnum": {
+      "type": "string",
+      "enum": ["option_a", "option_b", "option_c"],
+      "description": "Replace with your industry-specific enum"
+    }
+  },
+  "required": ["exampleField1"]
+}

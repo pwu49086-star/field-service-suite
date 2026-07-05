@@ -1,0 +1,7 @@
+{
+  "display_name": "HVAC",
+  "short_description": "HVAC industry module — air conditioning installation, repair, maintenance, and inspection with nameplate OCR.",
+  "default_prompt": "Help me build an HVAC service management system with equipment tracking, work orders, and nameplate recognition.",
+  "emoji_icon": "❄️",
+  "categories": ["hvac", "air-conditioning", "field-service"]
+}

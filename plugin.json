@@ -1,0 +1,20 @@
+{
+  "name": "field-service-suite",
+  "version": "0.1.0",
+  "description": "Asset Lifecycle Management — Codex Skill for Field Service industry software development",
+  "author": "Field Service Suite Contributors",
+  "license": "MIT",
+  "skills": [
+    "skills/field-service-core",
+    "skills/hvac"
+  ],
+  "keywords": [
+    "field-service",
+    "asset-lifecycle",
+    "hvac",
+    "workorder",
+    "master-data",
+    "offline-first",
+    "mobile-first"
+  ]
+}

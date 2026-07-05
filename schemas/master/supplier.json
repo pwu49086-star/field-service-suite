@@ -1,0 +1,23 @@
+{
+  "$id": "field-service://schemas/supplier",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Supplier",
+  "description": "Master data entity for parts suppliers.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1 },
+    "contact": { "type": "string", "description": "Contact person name" },
+    "phone": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "address": { "type": "string" },
+    "paymentTerms": { "type": "string", "description": "Payment terms (e.g., 'Net 30', 'COD')" },
+    "leadTimeDays": { "type": "integer", "minimum": 0, "description": "Average delivery lead time in days" },
+    "rating": { "type": "integer", "minimum": 1, "maximum": 5, "description": "Supplier rating" },
+    "notes": { "type": "string" },
+    "status": { "type": "string", "enum": ["active", "inactive"], "default": "active" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "name", "phone", "status", "createdAt"]
+}

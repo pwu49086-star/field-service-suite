@@ -1,0 +1,10 @@
+{
+  "display_name": "Field Service Suite",
+  "short_description": "Asset Lifecycle Management for field service industry software — work orders, asset tracking, OCR, offline-first mobile apps.",
+  "default_prompt": "Help me build a field service application with asset tracking, work order management, and mobile-first design.",
+  "emoji_icon": "🔧",
+  "categories": ["field-service", "mobile", "offline-first", "asset-management"],
+  "requires": {
+    "min_codex_version": "0.1.0"
+  }
+}

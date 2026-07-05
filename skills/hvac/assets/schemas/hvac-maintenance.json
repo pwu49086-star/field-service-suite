@@ -1,0 +1,65 @@
+{
+  "$id": "field-service://schemas/hvac-maintenance",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HVAC Maintenance Record",
+  "description": "Metadata for HVAC maintenance timeline events.",
+  "type": "object",
+  "properties": {
+    "maintenanceType": {
+      "type": "string",
+      "enum": ["scheduled", "preventive", "emergency"],
+      "description": "Type of maintenance"
+    },
+    "indoorUnitChecklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "action": { "type": "string", "enum": ["cleaned", "replaced", "inspected", "na"] },
+          "condition": { "type": "string", "enum": ["good", "fair", "poor", "replaced"] },
+          "notes": { "type": "string" }
+        },
+        "required": ["item", "action"]
+      }
+    },
+    "outdoorUnitChecklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "action": { "type": "string", "enum": ["cleaned", "replaced", "inspected", "na"] },
+          "condition": { "type": "string", "enum": ["good", "fair", "poor", "replaced"] },
+          "notes": { "type": "string" }
+        },
+        "required": ["item", "action"]
+      }
+    },
+    "systemChecklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "result": { "type": "string" },
+          "notes": { "type": "string" }
+        },
+        "required": ["item", "result"]
+      }
+    },
+    "measurements": {
+      "type": "object",
+      "properties": {
+        "supplyAirTemp": { "type": "number", "description": "Supply air temperature (°C)" },
+        "returnAirTemp": { "type": "number", "description": "Return air temperature (°C)" },
+        "runningCurrent": { "type": "number", "description": "Running current (A)" },
+        "refrigerantPressureLow": { "type": "number" },
+        "refrigerantPressureHigh": { "type": "number" },
+        "insulationResistance": { "type": "number", "description": "MΩ" }
+      }
+    },
+    "nextMaintenanceDate": { "type": "string", "format": "date" }
+  },
+  "required": ["maintenanceType", "indoorUnitChecklist", "outdoorUnitChecklist"]
+}

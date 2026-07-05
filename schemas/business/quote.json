@@ -1,0 +1,42 @@
+{
+  "$id": "field-service://schemas/quote",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quote",
+  "description": "Business entity for price quotes linked to work orders.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "workorderId": { "type": "string", "format": "uuid", "description": "Reference to WorkOrder" },
+    "customerId": { "type": "string", "format": "uuid", "description": "Reference to Customer" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "type": { "type": "string", "enum": ["labor", "part", "material", "other"] },
+          "quantity": { "type": "number", "minimum": 0 },
+          "unitPrice": { "type": "number", "minimum": 0 },
+          "amount": { "type": "number", "minimum": 0 }
+        },
+        "required": ["description", "type", "quantity", "unitPrice", "amount"]
+      }
+    },
+    "totalAmount": { "type": "number", "minimum": 0 },
+    "discountAmount": { "type": "number", "minimum": 0, "default": 0 },
+    "finalAmount": { "type": "number", "minimum": 0, "description": "totalAmount - discountAmount" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_approval", "approved", "rejected", "expired"],
+      "default": "draft"
+    },
+    "approvedAt": { "type": ["string", "null"], "format": "date-time" },
+    "rejectedAt": { "type": ["string", "null"], "format": "date-time" },
+    "rejectionReason": { "type": "string" },
+    "validUntil": { "type": "string", "format": "date", "description": "Quote expiration date" },
+    "notes": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdBy": { "type": "string", "format": "uuid" }
+  },
+  "required": ["id", "workorderId", "customerId", "items", "totalAmount", "finalAmount", "status", "createdAt"]
+}

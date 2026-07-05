@@ -1,0 +1,41 @@
+{
+  "$id": "field-service://schemas/payment",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Payment",
+  "description": "Business entity for payment records linked to work orders.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "workorderId": { "type": "string", "format": "uuid", "description": "Reference to WorkOrder" },
+    "customerId": { "type": "string", "format": "uuid", "description": "Reference to Customer" },
+    "amount": { "type": "number", "minimum": 0, "description": "Total payment amount" },
+    "method": {
+      "type": "string",
+      "enum": ["cash", "wechat_pay", "alipay", "bank_transfer", "credit_card", "other"],
+      "description": "Payment method"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "completed", "refunded", "failed"],
+      "default": "pending"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "amount": { "type": "number", "minimum": 0 }
+        },
+        "required": ["description", "amount"]
+      },
+      "description": "Payment line items"
+    },
+    "invoiceNo": { "type": ["string", "null"], "description": "Invoice number if issued" },
+    "paidAt": { "type": ["string", "null"], "format": "date-time" },
+    "notes": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdBy": { "type": "string", "format": "uuid" }
+  },
+  "required": ["id", "workorderId", "customerId", "amount", "method", "status", "createdAt"]
+}

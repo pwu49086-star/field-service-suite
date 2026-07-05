@@ -1,0 +1,35 @@
+{
+  "$id": "field-service://schemas/technician",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Technician",
+  "description": "Master data entity for field service technicians.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "minLength": 1 },
+    "phone": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "employeeId": { "type": "string", "description": "Internal employee number" },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Skill tags (e.g., ['hvac', 'electrical', 'plumbing'])"
+    },
+    "certifications": {
+      "type": "array",
+      "items": { "type": "object", "properties": {
+        "name": { "type": "string" },
+        "issuedBy": { "type": "string" },
+        "issuedAt": { "type": "string", "format": "date" },
+        "expiresAt": { "type": "string", "format": "date" }
+      }},
+      "description": "Professional certifications"
+    },
+    "maxDailyOrders": { "type": "integer", "minimum": 1, "description": "Maximum work orders per day" },
+    "serviceArea": { "type": "string", "description": "Service area/region" },
+    "status": { "type": "string", "enum": ["active", "on_leave", "inactive"], "default": "active" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "name", "phone", "status", "createdAt"]
+}

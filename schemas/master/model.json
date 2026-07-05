@@ -1,0 +1,25 @@
+{
+  "$id": "field-service://schemas/model",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Model",
+  "description": "Master data entity for product models, linked to a brand.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "brandId": { "type": "string", "format": "uuid", "description": "Reference to Brand" },
+    "name": { "type": "string", "minLength": 1, "description": "Model name/number" },
+    "category": {
+      "type": "string",
+      "enum": ["hvac", "appliance", "elevator", "water-purifier", "solar", "fire-safety", "security", "other"]
+    },
+    "specs": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Model specifications (industry-specific)"
+    },
+    "imageUrl": { "type": "string" },
+    "status": { "type": "string", "enum": ["active", "discontinued"], "default": "active" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "brandId", "name", "category", "createdAt"]
+}

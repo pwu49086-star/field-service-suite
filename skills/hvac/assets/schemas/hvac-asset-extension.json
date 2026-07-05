@@ -1,0 +1,72 @@
+{
+  "$id": "field-service://schemas/hvac-asset-extension",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HVAC Asset Extension",
+  "description": "HVAC-specific fields stored in the Asset.extension JSON field.",
+  "type": "object",
+  "properties": {
+    "equipmentType": {
+      "type": "string",
+      "enum": ["split", "window", "central", "ducted", "vrf", "heat_pump", "chiller"],
+      "description": "HVAC equipment type"
+    },
+    "refrigerant": {
+      "type": "string",
+      "enum": ["R22", "R410A", "R32", "R290", "R134a", "R407C"],
+      "description": "Refrigerant type"
+    },
+    "voltage": {
+      "type": "integer",
+      "enum": [220, 380],
+      "description": "Operating voltage"
+    },
+    "horsepower": {
+      "type": "number",
+      "minimum": 0.5,
+      "description": "Cooling capacity in horsepower (匹数)"
+    },
+    "coolingCapacity": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Cooling capacity in watts"
+    },
+    "heatingCapacity": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Heating capacity in watts"
+    },
+    "energyRating": {
+      "type": "string",
+      "enum": ["1级", "2级", "3级", "4级", "5级"],
+      "description": "Energy efficiency rating"
+    },
+    "outdoorUnitSerial": {
+      "type": "string",
+      "description": "Outdoor unit serial number (split/VRF systems)"
+    },
+    "outdoorUnitModel": {
+      "type": "string",
+      "description": "Outdoor unit model number"
+    },
+    "installationLocation": {
+      "type": "string",
+      "enum": ["客厅", "卧室", "书房", "办公室", "会议室", "机房", "厂房", "商铺", "other"],
+      "description": "Where the indoor unit is installed"
+    },
+    "pipeLength": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Connection pipe length in meters"
+    },
+    "indoorUnitCount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of indoor units (VRF/multi-split systems)"
+    },
+    "nameplateImageUrl": {
+      "type": "string",
+      "description": "URL of the nameplate photo"
+    }
+  },
+  "required": ["equipmentType", "refrigerant", "voltage", "horsepower", "coolingCapacity", "installationLocation"]
+}

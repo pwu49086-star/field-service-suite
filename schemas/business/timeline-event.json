@@ -1,0 +1,57 @@
+{
+  "$id": "field-service://schemas/timeline-event",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TimelineEvent",
+  "description": "Unified event timeline entity — the single source of truth for what happened to an asset. All service activities, status changes, and observations are recorded here.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "assetId": { "type": "string", "format": "uuid", "description": "Reference to the Asset this event belongs to" },
+    "customerId": { "type": "string", "format": "uuid", "description": "Reference to the Customer" },
+    "workorderId": { "type": ["string", "null"], "format": "uuid", "description": "Reference to related WorkOrder (optional — notes can exist without work orders)" },
+    "type": {
+      "type": "string",
+      "enum": ["installation", "repair", "maintenance", "inspection", "quote", "payment", "callback", "transfer", "scrap", "note"],
+      "description": "Event type"
+    },
+    "title": { "type": "string", "minLength": 1, "description": "Short event description" },
+    "description": { "type": "string", "description": "Detailed event description" },
+    "timestamp": { "type": "string", "format": "date-time", "description": "When the event occurred" },
+    "technicianId": { "type": ["string", "null"], "format": "uuid", "description": "Reference to Technician who performed the work" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "completed", "cancelled"],
+      "default": "completed"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Type-specific metadata. Schema depends on 'type' field."
+    },
+    "attachmentIds": {
+      "type": "array",
+      "items": { "type": "string", "format": "uuid" },
+      "description": "References to related Attachments"
+    },
+    "partsUsed": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/partsUsage" },
+      "description": "Parts consumed during this event"
+    },
+    "totalAmount": { "type": ["number", "null"], "minimum": 0, "description": "Total amount if payment-related" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdBy": { "type": "string", "format": "uuid", "description": "Technician ID who created this event" }
+  },
+  "required": ["id", "assetId", "customerId", "type", "title", "timestamp", "status", "createdAt"],
+  "$defs": {
+    "partsUsage": {
+      "type": "object",
+      "properties": {
+        "partId": { "type": "string", "format": "uuid", "description": "Reference to Part master data" },
+        "quantity": { "type": "number", "minimum": 0 },
+        "unitPrice": { "type": "number", "minimum": 0, "description": "Price at time of use (denormalized for historical accuracy)" }
+      },
+      "required": ["partId", "quantity"]
+    }
+  }
+}

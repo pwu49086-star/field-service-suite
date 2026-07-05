@@ -1,0 +1,42 @@
+{
+  "$id": "field-service://schemas/attachment",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Attachment",
+  "description": "Unified attachment entity — images, video, PDF, audio, document. Any business entity can reference attachments.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "type": {
+      "type": "string",
+      "enum": ["image", "video", "pdf", "audio", "document"],
+      "description": "Attachment type"
+    },
+    "mimeType": { "type": "string", "description": "MIME type (e.g., 'image/jpeg', 'video/mp4')" },
+    "fileName": { "type": "string", "description": "Original file name" },
+    "fileSize": { "type": "integer", "minimum": 0, "description": "File size in bytes" },
+    "url": { "type": "string", "description": "File URL (local blob URL or cloud URL)" },
+    "thumbnailUrl": { "type": ["string", "null"], "description": "Thumbnail URL (images/videos only)" },
+    "storageType": {
+      "type": "string",
+      "enum": ["local", "indexeddb", "cloud"],
+      "description": "Where the file is stored"
+    },
+    "width": { "type": ["integer", "null"], "description": "Image/video width in pixels" },
+    "height": { "type": ["integer", "null"], "description": "Image/video height in pixels" },
+    "duration": { "type": ["number", "null"], "description": "Audio/video duration in seconds" },
+    "exif": {
+      "type": ["object", "null"],
+      "properties": {
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "takenAt": { "type": "string", "format": "date-time" },
+        "orientation": { "type": "integer" }
+      },
+      "description": "EXIF metadata (images only)"
+    },
+    "ocrResultId": { "type": ["string", "null"], "description": "Reference to OCR result if this attachment was processed" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "createdBy": { "type": "string", "format": "uuid", "description": "Technician ID who created this attachment" }
+  },
+  "required": ["id", "type", "mimeType", "fileName", "fileSize", "url", "storageType", "createdAt"]
+}

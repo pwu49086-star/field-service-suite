@@ -1,0 +1,61 @@
+{
+  "$id": "field-service://schemas/workorder",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WorkOrder",
+  "description": "Business entity for work orders — installation, repair, maintenance, inspection, etc. References master data, never copies it.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "orderNo": { "type": "string", "description": "Human-readable order number (e.g., WO-20260706-001)" },
+    "type": {
+      "type": "string",
+      "enum": ["installation", "repair", "maintenance", "inspection", "quote_only", "other"],
+      "description": "Work order type"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending", "in_progress", "paused", "pending_parts", "pending_quote", "pending_payment", "completed", "cancelled"],
+      "default": "draft"
+    },
+    "priority": { "type": "string", "enum": ["low", "normal", "high", "urgent"], "default": "normal" },
+    "assetId": { "type": "string", "format": "uuid", "description": "Reference to Asset — never copy asset data" },
+    "customerId": { "type": "string", "format": "uuid", "description": "Reference to Customer — never copy customer data" },
+    "technicianId": { "type": ["string", "null"], "format": "uuid", "description": "Reference to assigned Technician" },
+    "addressId": { "type": "string", "format": "uuid", "description": "Reference to service Address" },
+    "description": { "type": "string", "description": "Problem description or work description" },
+    "faultCategory": { "type": "string", "description": "Fault category (e.g., 'electrical', 'mechanical', 'refrigerant')" },
+    "scheduledDate": { "type": ["string", "null"], "format": "date", "description": "Scheduled service date" },
+    "scheduledTimeSlot": { "type": "string", "description": "Time slot (e.g., '09:00-12:00')" },
+    "startedAt": { "type": ["string", "null"], "format": "date-time" },
+    "completedAt": { "type": ["string", "null"], "format": "date-time" },
+    "duration": { "type": ["integer", "null"], "description": "Actual duration in minutes" },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/workItem" },
+      "description": "Service items (labor, parts, etc.)"
+    },
+    "totalAmount": { "type": "number", "minimum": 0, "description": "Total amount in local currency" },
+    "paidAmount": { "type": "number", "minimum": 0, "default": 0 },
+    "signatureAttachmentId": { "type": ["string", "null"], "description": "Reference to customer signature attachment" },
+    "notes": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "createdBy": { "type": "string", "format": "uuid", "description": "Technician ID who created this work order" }
+  },
+  "required": ["id", "orderNo", "type", "status", "assetId", "customerId", "createdAt"],
+  "$defs": {
+    "workItem": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "type": { "type": "string", "enum": ["labor", "part", "material", "other"] },
+        "description": { "type": "string" },
+        "partId": { "type": ["string", "null"], "format": "uuid", "description": "Reference to Part master data (for part type)" },
+        "quantity": { "type": "number", "minimum": 0 },
+        "unitPrice": { "type": "number", "minimum": 0 },
+        "amount": { "type": "number", "minimum": 0, "description": "quantity × unitPrice" }
+      },
+      "required": ["id", "type", "description", "quantity", "unitPrice", "amount"]
+    }
+  }
+}
