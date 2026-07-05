@@ -1,0 +1,7 @@
+{
+  "display_name": "Solar",
+  "short_description": "Solar PV system installation and maintenance — panels, inverters, batteries, generation monitoring.",
+  "default_prompt": "Help me build a solar PV system maintenance management system with generation monitoring.",
+  "emoji_icon": "☀️",
+  "categories": ["solar", "renewable-energy", "field-service"]
+}

@@ -1,0 +1,32 @@
+{
+  "$id": "field-service://schemas/elevator-asset-extension",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Elevator Asset Extension",
+  "description": "Elevator-specific fields stored in the Asset.extension JSON field.",
+  "type": "object",
+  "properties": {
+    "elevatorType": { "type": "string", "enum": ["passenger", "freight", "residential", "escalator", "moving_walk", "hospital", "observation", "other"] },
+    "loadCapacity": { "type": "number", "minimum": 100, "description": "载重 (kg)" },
+    "speed": { "type": "number", "minimum": 0, "description": "速度 (m/s)" },
+    "floors": { "type": "integer", "minimum": 2, "description": "服务楼层数" },
+    "floorRange": { "type": "string", "description": "楼层范围 (e.g., 'B2-F30')" },
+    "travelHeight": { "type": "number", "minimum": 0, "description": "提升高度 (m)" },
+    "machineRoomType": { "type": "string", "enum": ["machine_room", "machine_room_less"] },
+    "machineRoomLocation": { "type": "string" },
+    "driveType": { "type": "string", "enum": ["traction", "hydraulic", "screw", "belt"] },
+    "controlType": { "type": "string", "description": "控制方式 (VVVF, AC-2)" },
+    "doorType": { "type": "string", "description": "门类型" },
+    "registrationNo": { "type": "string", "description": "注册代码" },
+    "registrationDate": { "type": "string", "format": "date" },
+    "useCertificateNo": { "type": "string" },
+    "useCertificateExpiry": { "type": "string", "format": "date" },
+    "lastInspectionDate": { "type": "string", "format": "date" },
+    "nextInspectionDate": { "type": "string", "format": "date" },
+    "inspectionResult": { "type": "string", "enum": ["pass", "fail", "conditional"] },
+    "inspectionAgency": { "type": "string" },
+    "emergencyPhone": { "type": "boolean" },
+    "fireServiceMode": { "type": "boolean" },
+    "earthquakeDevice": { "type": "boolean" }
+  },
+  "required": ["elevatorType", "loadCapacity", "speed", "floors", "floorRange", "machineRoomType", "driveType"]
+}

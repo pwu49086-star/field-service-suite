@@ -1,0 +1,33 @@
+{
+  "$id": "field-service://schemas/security-asset-extension",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Security Asset Extension",
+  "description": "Security equipment-specific fields stored in the Asset.extension JSON field.",
+  "type": "object",
+  "properties": {
+    "deviceType": { "type": "string", "enum": ["camera", "nvr", "dvr", "access_control", "card_reader", "electric_lock", "alarm_panel", "pir_sensor", "door_sensor", "siren", "intercom", "monitor", "switch", "other"] },
+    "resolution": { "type": "string", "description": "分辨率 (4MP, 8MP, 4K)" },
+    "lensType": { "type": "string" },
+    "nightVision": { "type": "boolean" },
+    "nightVisionRange": { "type": "number", "minimum": 0 },
+    "ptzCapable": { "type": "boolean" },
+    "waterproof": { "type": "boolean" },
+    "ipRating": { "type": "string" },
+    "audioEnabled": { "type": "boolean" },
+    "ipAddress": { "type": "string" },
+    "macAddress": { "type": "string" },
+    "protocol": { "type": "string" },
+    "storageType": { "type": "string", "enum": ["nvr", "sd_card", "cloud", "nas"] },
+    "storageCapacity": { "type": "number", "minimum": 0, "description": "TB" },
+    "recordingDays": { "type": "integer", "minimum": 1 },
+    "doorCount": { "type": "integer", "minimum": 0 },
+    "cardCapacity": { "type": "integer", "minimum": 0 },
+    "accessMethod": { "type": "array", "items": { "type": "string" } },
+    "firmwareVersion": { "type": "string" },
+    "firmwareLastUpdate": { "type": "string", "format": "date" },
+    "installationHeight": { "type": "number", "minimum": 0 },
+    "installationLocation": { "type": "string", "enum": ["indoor", "outdoor", "both"] },
+    "coverageAngle": { "type": "number", "minimum": 0, "maximum": 360 }
+  },
+  "required": ["deviceType"]
+}

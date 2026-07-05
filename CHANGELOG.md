@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.3.0] - 2026-07-06
+
+### Added
+- Elevator industry module
+  - 7 elevator types (passenger, freight, residential, escalator, hospital, observation)
+  - Compliance tracking (annual inspection, safety certificates, registration)
+  - Maintenance checklist with 30+ inspection items
+  - Common fault database
+- Fire safety industry module
+  - 13 equipment types (extinguisher, alarm, sprinkler, detector, fire door, etc.)
+  - Expiry tracking and compliance documentation
+  - Inspection checklists for extinguishers, alarms, sprinklers
+  - Fire drill scheduling and records
+- Solar PV industry module
+  - 4 system types (residential, commercial, industrial, utility)
+  - Generation monitoring and performance degradation tracking
+  - Panel cleaning schedules
+  - 3 grid types (on-grid, off-grid, hybrid)
+- Security industry module
+  - 14 device types (camera, NVR, DVR, access control, alarm, etc.)
+  - Network configuration tracking (IP, MAC, protocol)
+  - Firmware version management
+  - Storage capacity calculation
+
 ## [0.2.0] - 2026-07-06
 
 ### Added

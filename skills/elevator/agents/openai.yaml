@@ -1,0 +1,7 @@
+{
+  "display_name": "Elevator",
+  "short_description": "Elevator/escalator maintenance with compliance tracking — annual inspection, safety certificates, regulatory documentation.",
+  "default_prompt": "Help me build an elevator maintenance management system with annual inspection compliance tracking.",
+  "emoji_icon": "🛗",
+  "categories": ["elevator", "compliance", "field-service"]
+}

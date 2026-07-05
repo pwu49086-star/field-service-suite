@@ -1,0 +1,29 @@
+{
+  "$id": "field-service://schemas/fire-safety-asset-extension",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fire Safety Asset Extension",
+  "description": "Fire safety-specific fields stored in the Asset.extension JSON field.",
+  "type": "object",
+  "properties": {
+    "equipmentType": { "type": "string", "enum": ["extinguisher", "alarm_panel", "smoke_detector", "heat_detector", "sprinkler", "fire_hydrant", "fire_pump", "emergency_light", "exit_sign", "fire_door", "gas_suppression", "kitchen_suppression", "other"] },
+    "extinguisherType": { "type": "string", "enum": ["dry_powder", "co2", "foam", "water", "wet_chemical"] },
+    "extinguisherWeight": { "type": "number", "minimum": 0 },
+    "extinguishClass": { "type": "string" },
+    "coverageArea": { "type": "number", "minimum": 0 },
+    "sensitivity": { "type": "string" },
+    "manufactureDate": { "type": "string", "format": "date" },
+    "expiryDate": { "type": "string", "format": "date" },
+    "lastInspectionDate": { "type": "string", "format": "date" },
+    "nextInspectionDate": { "type": "string", "format": "date" },
+    "inspectionCycle": { "type": "integer", "minimum": 1, "description": "检查周期（月）" },
+    "certificationNo": { "type": "string" },
+    "certificationBody": { "type": "string" },
+    "buildingName": { "type": "string" },
+    "floorLevel": { "type": "string" },
+    "zone": { "type": "string" },
+    "locationDescription": { "type": "string" },
+    "pressureNormal": { "type": "boolean" },
+    "pressureValue": { "type": "number", "description": "压力值 (MPa)" }
+  },
+  "required": ["equipmentType"]
+}

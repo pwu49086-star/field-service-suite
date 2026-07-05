@@ -1,0 +1,7 @@
+{
+  "display_name": "Security",
+  "short_description": "Security equipment installation and maintenance — cameras, access control, alarms, network configuration.",
+  "default_prompt": "Help me build a security equipment maintenance management system with network configuration tracking.",
+  "emoji_icon": "📹",
+  "categories": ["security", "surveillance", "field-service"]
+}

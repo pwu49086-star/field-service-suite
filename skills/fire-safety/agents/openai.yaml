@@ -1,0 +1,7 @@
+{
+  "display_name": "Fire Safety",
+  "short_description": "Fire safety equipment inspection and compliance — extinguishers, alarms, sprinklers, expiry tracking.",
+  "default_prompt": "Help me build a fire safety equipment inspection system with expiry tracking and compliance management.",
+  "emoji_icon": "🧯",
+  "categories": ["fire-safety", "compliance", "field-service"]
+}

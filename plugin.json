@@ -8,7 +8,11 @@
     "skills/field-service-core",
     "skills/hvac",
     "skills/appliance-repair",
-    "skills/water-purifier"
+    "skills/water-purifier",
+    "skills/elevator",
+    "skills/fire-safety",
+    "skills/solar",
+    "skills/security"
   ],
   "keywords": [
     "field-service",
