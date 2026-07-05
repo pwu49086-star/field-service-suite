@@ -1,4 +1,4 @@
-# Event Timeline Rules
+﻿# Event Timeline Rules
 
 ## Principle
 
@@ -9,13 +9,13 @@ The Event Timeline is the **single source of truth** for what happened to an Ass
 ```typescript
 interface TimelineEvent {
   id: string;                    // UUID
-  assetId: string;               // Primary entity — which asset
+  assetId: string;               // Primary entity 鈥?which asset
   customerId: string;            // Which customer
   workorderId?: string;          // Related work order (if any)
   type: TimelineEventType;       // Event category
   title: string;                 // Short description
   description?: string;          // Detailed description
-  timestamp: string;             // ISO datetime — when it happened
+  timestamp: string;             // ISO datetime 鈥?when it happened
   technicianId?: string;         // Who did it
   status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
   metadata?: Record<string, unknown>;  // Type-specific data
@@ -26,62 +26,21 @@ interface TimelineEvent {
 }
 
 type TimelineEventType =
-  | 'installation'   // 设备安装
-  | 'repair'         // 维修
-  | 'maintenance'    // 保养
-  | 'inspection'     // 巡检
-  | 'quote'          // 报价
-  | 'payment'        // 收款
-  | 'callback'       // 回访
-  | 'transfer'       // 设备转移
-  | 'scrap'          // 设备报废
-  | 'note';          // 备注
+  | 'installation'   // 璁惧瀹夎
+  | 'repair'         // 缁翠慨
+  | 'maintenance'    // 淇濆吇
+  | 'inspection'     // 宸℃
+  | 'quote'          // 鎶ヤ环
+  | 'payment'        // 鏀舵
+  | 'callback'       // 鍥炶
+  | 'transfer'       // 璁惧杞Щ
+  | 'scrap'          // 璁惧鎶ュ簾
+  | 'note';          // 澶囨敞
 ```
 
 ## Event Type Metadata
 
-### Installation
-
-```typescript
-interface InstallationMetadata {
-  installationType: 'new' | 'replacement' | 'relocation';
-  commissioningChecklist: ChecklistItem[];
-  testResults: Record<string, string>;
-}
-```
-
-### Repair
-
-```typescript
-interface RepairMetadata {
-  faultDescription: string;
-  faultCategory: string;        // 'electrical' | 'mechanical' | 'refrigerant' | 'other'
-  rootCause?: string;
-  repairActions: string[];
-  duration: number;             // minutes
-}
-```
-
-### Maintenance
-
-```typescript
-interface MaintenanceMetadata {
-  maintenanceType: 'scheduled' | 'preventive' | 'emergency';
-  checklist: ChecklistItem[];
-  nextMaintenanceDate?: string;
-}
-```
-
-### Inspection
-
-```typescript
-interface InspectionMetadata {
-  inspectionType: 'routine' | 'compliance' | 'safety';
-  checklist: ChecklistItem[];
-  overallResult: 'pass' | 'fail' | 'conditional';
-  correctiveActions?: string[];
-}
-```
+Each event type has its own metadata schema. Industry modules define the specific metadata structure. See `schemas/business/timeline-event.json` for the base structure.
 
 ## Query Patterns
 
@@ -122,12 +81,13 @@ const repairCounts = await db.timelineEvents
 3. Events with attachments show thumbnail previews
 4. Tap an event to expand full details
 5. Filter by event type (tabs or chips)
-6. Date grouping: "今天", "昨天", "本周", "本月", "更早"
+6. Date grouping: "浠婂ぉ", "鏄ㄥぉ", "鏈懆", "鏈湀", "鏇存棭"
 
 ## Rules
 
 1. Every work order completion creates a Timeline Event
 2. Every asset status change creates a Timeline Event
-3. Timeline Events are immutable once created — corrections are new events
+3. Timeline Events are immutable once created 鈥?corrections are new events
 4. Timeline Events can exist without a work order (e.g., standalone notes)
 5. Deleting a work order does NOT delete its Timeline Events
+
