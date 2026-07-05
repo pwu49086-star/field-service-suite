@@ -1,4 +1,4 @@
----
+﻿---
 name: field-service-suite
 description: |
   Asset Lifecycle Management framework for Field Service industry software development.
@@ -14,7 +14,7 @@ description: |
 
 ## Overview
 
-Asset Lifecycle Management framework. Every piece of equipment in the real world is an **Asset** with a lifecycle: installation → active use → maintenance → repair → inspection → transfer → scrap. This skill ensures Codex understands field service domain patterns — not generic CRUD.
+Asset Lifecycle Management framework. Every piece of equipment in the real world is an **Asset** with a lifecycle: installation 鈫?active use 鈫?maintenance 鈫?repair 鈫?inspection 鈫?transfer 鈫?scrap. This skill ensures Codex understands field service domain patterns 鈥?not generic CRUD.
 
 Core philosophy: **Asset-centric, timeline-driven, master-data-governed, mobile-first, offline-first.**
 
@@ -49,16 +49,16 @@ Core philosophy: **Asset-centric, timeline-driven, master-data-governed, mobile-
    - `Fire Safety`: extinguisher, alarm, sprinkler, fire drill
    - `Solar`: panel, inverter, grid, generation
    - `Security`: camera, alarm, access control
-   - `Generic`: no specific industry — use core patterns
+   - `Generic`: no specific industry 鈥?use core patterns
 2. Route to the most specific sub-skill.
 3. Always load the master data rules and asset lifecycle rules from `../../references/`.
-4. Load only the rules needed for the current task — do not load everything.
+4. Load only the rules needed for the current task 鈥?do not load everything.
 
 ## Core Concepts
 
 ### Master Data (MDM)
 
-All foundational entities are master data — globally unique, referenced never copied:
+All foundational entities are master data 鈥?globally unique, referenced never copied:
 
 - **Customer**: person or organization that owns assets and receives service
 - **Asset**: any piece of equipment, device, or installation (replaces "Equipment")
@@ -70,7 +70,7 @@ All foundational entities are master data — globally unique, referenced never 
 
 ### Asset Lifecycle
 
-Every asset flows through: `registered → active → maintenance → inactive → scrapped → transferred`. All service events (installation, repair, maintenance, inspection, quote, payment, callback) are recorded as **Timeline Events** on the asset.
+Every asset flows through: `registered 鈫?active 鈫?maintenance 鈫?inactive 鈫?scrapped 鈫?transferred`. All service events (installation, repair, maintenance, inspection, quote, payment, callback) are recorded as **Timeline Events** on the asset.
 
 ### Event Timeline
 
@@ -80,9 +80,9 @@ The single source of truth for asset history. All work orders, photos, payments,
 
 1. **Master Data**: Global entity registry with strict reference rules
 2. **Asset Model**: Unified asset with industry-specific extensions via JSON
-3. **OCR Engine**: Shared across all industries — nameplate, barcode, QR, invoice, receipt
-4. **Attachment System**: Images, video, PDF, audio, document — any entity can reference
-5. **Event Timeline**: Unified event stream per asset — the most important data structure
+3. **OCR Engine**: Shared across all industries 鈥?nameplate, barcode, QR, invoice, receipt
+4. **Attachment System**: Images, video, PDF, audio, document 鈥?any entity can reference
+5. **Event Timeline**: Unified event stream per asset 鈥?the most important data structure
 
 ## Templates
 
@@ -100,97 +100,40 @@ When generating code, use these templates:
 | Composables | useScanner, useNetworkStatus | `templates/composables/*.tpl` |
 | Router | Vue Router config | `templates/router/index.ts.tpl` |
 
-### Critical Pattern: Component Splitting
+## Critical Patterns (MUST follow)
 
-When a page exceeds **200 lines**, split into child components:
-
-```
-Page (shell: header + router-view + action bar)
-├── components/StepAssetSelect.vue      ← Step 1: asset search/scan
-├── components/StepCustomerSelect.vue   ← Step 2: customer search
-├── components/StepDetailsForm.vue      ← Step 3: form fields
-└── components/StepConfirm.vue          ← Step 4: review & submit
-```
-
-Rules:
-- Each component owns its own state and validation
-- Page component manages step navigation via `useFormWizard`
-- Child components emit events up, never navigate directly
-- Shared UI patterns (search input, card list, step indicator) become reusable components
-
-### Critical Pattern: Checklist Loading
-
-Industry checklists (HVAC installation, maintenance, inspection) are defined in the industry module's `references/hvac-workflows.md`. When generating checklist UI:
-
-1. Load the checklist definition from the workflow reference
-2. Generate a composable or constant array
-3. Render as a checkbox list with `v-model`
-4. Store checked state in the work order's metadata
-
-Do NOT hardcode checklists in page components.
-
-### Critical Pattern: Shared Constants
-
-**Always** generate `constants/status.ts` and `utils/date.ts` first. Every page imports from these instead of defining its own labels/colors/formatting functions.
-
-### Critical Pattern: Store Enrichment
-
-The WorkOrder store MUST include an `enrichOrder()` function that joins master data names (asset name, customer name, technician name) for display. WorkOrder only stores IDs.
-
-### Critical Pattern: Type-Safe Extension Access
-
-When accessing industry-specific extension fields, generate a type guard or computed property:
-
-```typescript
-import type { HVACExtension } from '@/types';
-
-function isHVACExtension(ext: Record<string, unknown>): ext is HVACExtension {
-  return 'equipmentType' in ext && 'refrigerant' in ext;
-}
-
-const hvac = computed(() => {
-  const ext = asset.value?.extension;
-  return ext && isHVACExtension(ext) ? ext : null;
-});
-```
+| Pattern | Rule |
+|---------|------|
+| **Shared Constants** | Generate `constants/status.ts` + `utils/date.ts` first. Every page imports from these. |
+| **Store Enrichment** | WorkOrder store MUST have `enrichOrder()` that joins master data names. WorkOrder only stores IDs. |
+| **Type-Safe Extension** | Use type guard `isHVACExtension(ext)` instead of `as any` when accessing extension fields. |
+| **Component Splitting** | Pages > 200 lines must split into child components. Each owns its state. |
+| **Checklist Loading** | Load checklists from workflow references. Do NOT hardcode in page components. |
 
 ## References
+## References
 
-- Architecture & principles: `../../references/architecture.md`
-- Mobile UI: `../../references/ui-rules.md`
-- Workflow: `../../references/workflow-rules.md`
-- Database: `../../references/database-rules.md`
-- Naming: `../../references/naming-rules.md`
-- Timeline: `../../references/timeline-rules.md`
-- Attachment: `../../references/attachment-rules.md`
-- Offline: `../../references/offline-rules.md`
-- Scanner: `../../references/scanner-rules.md`
-- OCR: `../../references/ocr-rules.md`
-- Performance: `../../references/performance-rules.md`
-- MDM: `../../references/mdm-rules.md`
-- Asset Lifecycle: `../../references/asset-lifecycle-rules.md`
-- Coding: `../../references/coding-rules.md`
-- Module Dev: `../../references/module-development-guide.md`
-- Master Data rules: `../../references/mdm-rules.md`
-- Asset lifecycle: `../../references/asset-lifecycle-rules.md`
-- Database design: `../../references/database-rules.md`
-- Mobile UI: `../../references/ui-rules.md`
-- Workflow state machine: `../../references/workflow-rules.md`
-- Naming conventions: `../../references/naming-rules.md`
-- Offline-first: `../../references/offline-rules.md`
-- Coding standards: `../../references/coding-rules.md`
-- Performance: `../../references/performance-rules.md`
-- Attachment system: `../../references/attachment-rules.md`
-- OCR engine: `../../references/ocr-rules.md`
-- Scanner: `../../references/scanner-rules.md`
-- Timeline: `../../references/timeline-rules.md`
-- Module development: `../../references/module-development-guide.md`
+- Architecture: ../../references/architecture.md
+- MDM: ../../references/mdm-rules.md
+- Asset Lifecycle: ../../references/asset-lifecycle-rules.md
+- Database: ../../references/database-rules.md
+- UI: ../../references/ui-rules.md
+- Workflow: ../../references/workflow-rules.md
+- Naming: ../../references/naming-rules.md
+- Offline: ../../references/offline-rules.md
+- Coding: ../../references/coding-rules.md
+- Performance: ../../references/performance-rules.md
+- Attachment: ../../references/attachment-rules.md
+- OCR: ../../references/ocr-rules.md
+- Scanner: ../../references/scanner-rules.md
+- Timeline: ../../references/timeline-rules.md
+- Module Dev: ../../references/module-development-guide.md
 
 ## Sub-Skills
 
-- `../field-service-core/SKILL.md` — Core patterns, master data, timeline, attachments, OCR
-- `../hvac/SKILL.md` — HVAC industry module
-- `../_module-template/SKILL.md` — Template for creating new industry modules
+- `../field-service-core/SKILL.md` 鈥?Core patterns, master data, timeline, attachments, OCR
+- `../hvac/SKILL.md` 鈥?HVAC industry module
+- `../_module-template/SKILL.md` 鈥?Template for creating new industry modules
 
 ## Examples
 
@@ -206,3 +149,5 @@ const hvac = computed(() => {
 - "Implement a unified timeline view for asset history"
 - "Create an OCR pipeline for reading HVAC nameplate photos"
 - "Design an offline-first sync strategy for field technicians"
+
+
