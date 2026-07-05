@@ -1,0 +1,77 @@
+{
+  "$id": "field-service://schemas/appliance-asset-extension",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Appliance Asset Extension",
+  "description": "Appliance-specific fields stored in the Asset.extension JSON field.",
+  "type": "object",
+  "properties": {
+    "applianceType": {
+      "type": "string",
+      "enum": ["washing_machine", "dryer", "refrigerator", "freezer", "microwave", "oven", "dishwasher", "range_hood", "gas_stove", "water_heater", "air_purifier", "dehumidifier", "other"],
+      "description": "Appliance type"
+    },
+    "capacity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Capacity (L for fridge, kg for washer)"
+    },
+    "capacityUnit": {
+      "type": "string",
+      "enum": ["kg", "L", "place_settings"],
+      "description": "Unit of capacity"
+    },
+    "powerRating": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Rated power (W)"
+    },
+    "voltage": {
+      "type": "integer",
+      "enum": [220, 380],
+      "description": "Operating voltage"
+    },
+    "energyRating": {
+      "type": "string",
+      "enum": ["1级", "2级", "3级", "4级", "5级"],
+      "description": "Energy efficiency rating"
+    },
+    "isSmart": {
+      "type": "boolean",
+      "description": "Smart appliance with connectivity"
+    },
+    "connectivity": {
+      "type": "string",
+      "enum": ["wifi", "bluetooth", "none"],
+      "description": "Connectivity type"
+    },
+    "features": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Feature tags (e.g., '变频', '烘干', '蒸汽', '除菌')"
+    },
+    "installationType": {
+      "type": "string",
+      "enum": ["built_in", "freestanding", "wall_mounted", "countertop"],
+      "description": "Installation type"
+    },
+    "installationLocation": {
+      "type": "string",
+      "enum": ["厨房", "卫生间", "阳台", "客厅", "other"],
+      "description": "Installation location"
+    },
+    "nameplateImageUrl": {
+      "type": "string",
+      "description": "URL of the nameplate photo"
+    },
+    "purchaseDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Purchase date"
+    },
+    "purchaseChannel": {
+      "type": "string",
+      "description": "Purchase channel (e.g., '京东', '天猫', '线下')"
+    }
+  },
+  "required": ["applianceType"]
+}

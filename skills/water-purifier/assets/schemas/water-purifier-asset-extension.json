@@ -1,0 +1,104 @@
+{
+  "$id": "field-service://schemas/water-purifier-asset-extension",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Water Purifier Asset Extension",
+  "description": "Water purifier-specific fields stored in the Asset.extension JSON field.",
+  "type": "object",
+  "properties": {
+    "purifierType": {
+      "type": "string",
+      "enum": ["ro", "uf", "uv", "nanofiltration", "water_softener", "commercial", "other"],
+      "description": "Purifier type"
+    },
+    "waterSource": {
+      "type": "string",
+      "enum": ["tap", "well", "other"],
+      "description": "Water source type"
+    },
+    "flowRate": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Flow rate"
+    },
+    "flowRateUnit": {
+      "type": "string",
+      "enum": ["LPH", "GPD"],
+      "description": "Flow rate unit (liters/hour or gallons/day)"
+    },
+    "tankCapacity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Pressure tank capacity (L)"
+    },
+    "inletTDS": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Inlet water TDS (ppm)"
+    },
+    "outletTDS": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Outlet water TDS (ppm)"
+    },
+    "targetTDS": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Target TDS (ppm)"
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer", "minimum": 1 },
+          "type": { "type": "string", "enum": ["pp", "cto", "ro_membrane", "uf_membrane", "uv_lamp", "t33", "mineral", "other"] },
+          "typeName": { "type": "string" },
+          "model": { "type": "string" },
+          "installedDate": { "type": "string", "format": "date" },
+          "expectedLifespan": { "type": "integer", "minimum": 1, "description": "Expected lifespan in months" },
+          "replacementDate": { "type": "string", "format": "date" },
+          "status": { "type": "string", "enum": ["active", "due_soon", "expired", "replaced"] }
+        },
+        "required": ["position", "type", "typeName", "status"]
+      },
+      "description": "Filter configuration"
+    },
+    "hasTDSMonitor": {
+      "type": "boolean",
+      "description": "Has built-in TDS monitoring"
+    },
+    "hasFilterReminder": {
+      "type": "boolean",
+      "description": "Has filter replacement reminder"
+    },
+    "hasLeakDetection": {
+      "type": "boolean",
+      "description": "Has leak detection sensor"
+    },
+    "connectivity": {
+      "type": "string",
+      "enum": ["wifi", "none"],
+      "description": "Connectivity type"
+    },
+    "installationLocation": {
+      "type": "string",
+      "enum": ["厨房", "卫生间", "阳台", "other"],
+      "description": "Installation location"
+    },
+    "installationType": {
+      "type": "string",
+      "enum": ["under_sink", "countertop", "whole_house", "commercial"],
+      "description": "Installation type"
+    },
+    "purchaseDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Purchase date"
+    },
+    "purchaseChannel": {
+      "type": "string",
+      "description": "Purchase channel"
+    }
+  },
+  "required": ["purifierType", "waterSource", "filters"]
+}

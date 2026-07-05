@@ -1,0 +1,7 @@
+{
+  "display_name": "Water Purifier",
+  "short_description": "Water purifier module — RO filters, UV purifiers, TDS monitoring, filter lifecycle tracking.",
+  "default_prompt": "Help me build a water purifier service management system with TDS monitoring and filter replacement tracking.",
+  "emoji_icon": "💧",
+  "categories": ["water-purifier", "field-service"]
+}

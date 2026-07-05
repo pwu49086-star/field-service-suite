@@ -1,0 +1,56 @@
+{
+  "$id": "field-service://schemas/appliance-repair-record",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Appliance Repair Record",
+  "description": "Metadata for appliance repair timeline events.",
+  "type": "object",
+  "properties": {
+    "faultSymptom": {
+      "type": "string",
+      "description": "Customer-reported fault symptom"
+    },
+    "faultCategory": {
+      "type": "string",
+      "enum": ["electrical", "mechanical", "drainage", "heating", "cooling", "noise", "leak", "control", "other"],
+      "description": "Fault category"
+    },
+    "rootCause": {
+      "type": "string",
+      "description": "Identified root cause"
+    },
+    "repairActions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Actions taken to fix"
+    },
+    "partsReplaced": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "partName": { "type": "string" },
+          "partId": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 }
+        },
+        "required": ["partName", "quantity"]
+      },
+      "description": "Parts replaced during repair"
+    },
+    "testResults": {
+      "type": "object",
+      "properties": {
+        "powerOn": { "type": "boolean" },
+        "normalOperation": { "type": "boolean" },
+        "noiseLevel": { "type": "string" },
+        "leakCheck": { "type": "boolean" },
+        "notes": { "type": "string" }
+      }
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Repair duration in minutes"
+    }
+  },
+  "required": ["faultSymptom", "faultCategory"]
+}

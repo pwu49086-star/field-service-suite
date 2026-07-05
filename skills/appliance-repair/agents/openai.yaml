@@ -1,0 +1,7 @@
+{
+  "display_name": "Appliance Repair",
+  "short_description": "Home appliance repair module — washing machines, refrigerators, microwaves, dishwashers, ovens, range hoods.",
+  "default_prompt": "Help me build an appliance repair service management system with fault diagnosis and parts tracking.",
+  "emoji_icon": "🔌",
+  "categories": ["appliance", "repair", "field-service"]
+}

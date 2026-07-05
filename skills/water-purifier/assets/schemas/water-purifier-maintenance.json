@@ -1,0 +1,57 @@
+{
+  "$id": "field-service://schemas/water-purifier-maintenance",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Water Purifier Maintenance Record",
+  "description": "Metadata for water purifier maintenance/filter replacement timeline events.",
+  "type": "object",
+  "properties": {
+    "maintenanceType": {
+      "type": "string",
+      "enum": ["filter_replacement", "water_quality_test", "repair", "annual_service"],
+      "description": "Type of maintenance"
+    },
+    "filtersReplaced": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "integer" },
+          "oldType": { "type": "string" },
+          "newType": { "type": "string" },
+          "newModel": { "type": "string" },
+          "installedDate": { "type": "string", "format": "date" },
+          "expectedLifespan": { "type": "integer", "description": "Months" }
+        },
+        "required": ["position", "newType", "installedDate"]
+      },
+      "description": "Filters replaced during this service"
+    },
+    "waterQualityTest": {
+      "type": "object",
+      "properties": {
+        "inletTDS": { "type": "number", "minimum": 0 },
+        "outletTDS": { "type": "number", "minimum": 0 },
+        "reductionRate": { "type": "number", "minimum": 0, "maximum": 100, "description": "TDS reduction rate (%)" },
+        "pH": { "type": "number" },
+        "chlorine": { "type": "number", "description": "余氯 (mg/L)" },
+        "result": { "type": "string", "enum": ["pass", "fail", "marginal"] }
+      },
+      "required": ["inletTDS", "outletTDS", "reductionRate"]
+    },
+    "faultDescription": {
+      "type": "string",
+      "description": "Fault description (for repair type)"
+    },
+    "repairActions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Repair actions taken"
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Service duration in minutes"
+    }
+  },
+  "required": ["maintenanceType"]
+}

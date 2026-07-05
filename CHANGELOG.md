@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [0.2.0] - 2026-07-06
+
+### Added
+- Appliance repair industry module with complete data model, workflows, and fault database
+  - 12 appliance types (washing machine, refrigerator, microwave, dishwasher, etc.)
+  - Detailed fault diagnosis tables for washing machines, refrigerators, microwaves, dishwashers, range hoods
+  - Maintenance checklists per appliance type
+  - 16 common appliance brands with model naming patterns
+  - OCR patterns for appliance nameplate recognition
+- Water purifier industry module with TDS monitoring and filter lifecycle tracking
+  - 7 purifier types (RO, UF, UV, nanofiltration, water softener, commercial)
+  - Filter type database (PP, CTO, RO membrane, UF membrane, UV lamp, T33, mineral)
+  - TDS trend analysis for filter health monitoring
+  - Filter lifespan calculation and replacement scheduling
+  - Water quality testing workflow
+  - 12 common water purifier brands
+- New templates from v0.2 testing iteration
+  - useFormWizard composable for multi-step forms
+  - timeline utilities (date grouping, stats, event subtitles)
+  - asset-lookup-service for scanner flow
+
+### Changed
+- Updated pinia-store template with enrichment pattern (join master data names for display)
+- Updated SKILL.md with 7 Critical Patterns (was 3)
+  - Added Component Splitting rule (pages > 200 lines must split)
+  - Added Checklist Loading rule (load from workflow references, not hardcode)
+  - Added Component Splitting and Checklist Loading patterns
+
 ## [0.1.0] - 2026-07-06
 
 ### Added

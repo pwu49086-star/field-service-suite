@@ -6,7 +6,9 @@
   "license": "MIT",
   "skills": [
     "skills/field-service-core",
-    "skills/hvac"
+    "skills/hvac",
+    "skills/appliance-repair",
+    "skills/water-purifier"
   ],
   "keywords": [
     "field-service",
