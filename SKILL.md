@@ -28,7 +28,7 @@ Core philosophy: **Asset-centric, timeline-driven, master-data-governed, mobile-
 | "HVAC work order" | `hvac` | ui, workflow, hvac-workflows |
 | "HVAC nameplate OCR" | `hvac` | ocr, hvac-nameplate-ocr |
 | "Design a new industry module" | `_module-template` | module-development-guide |
-| "Scan QR code" | `field-service-core` | scanner, offline |
+| "Nameplate OCR" | `field-service-core` | ocr, scanner |
 | "Photo/attachment management" | `field-service-core` | attachment, image |
 | "Asset timeline/history" | `field-service-core` | timeline |
 | "Offline sync" | `field-service-core` | offline, database |
@@ -147,7 +147,10 @@ When generating code, use these templates:
 - "Design an IndexedDB schema for HVAC equipment with Dexie.js"
 - "Generate a mobile work order detail page with photo capture"
 - "Implement a unified timeline view for asset history"
-- "Create an OCR pipeline for reading HVAC nameplate photos"
-- "Design an offline-first sync strategy for field technicians"
+- "Create a nameplate OCR pipeline for automatic equipment identification"
+- "Design a customer-first work order flow for field service teams"
+- "Build a daily stats dashboard for 5-6 person service teams"
+- "Implement equipment lookup by customer + address (not serial number)"
+
 
 
